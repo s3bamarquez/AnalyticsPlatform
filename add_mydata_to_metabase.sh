@@ -5,8 +5,13 @@ set -e
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Cargar variables del archivo .env
+ENV_FILE="$SCRIPT_DIR/.env"
+if [ -f "$ENV_FILE" ]; then
+  # Elimina retornos de carro por si el archivo usa formato Windows
+  tr -d '\r' < "$ENV_FILE" > /tmp/.env && ENV_FILE=/tmp/.env
+fi
 set -a
-. "$SCRIPT_DIR/.env"
+. "$ENV_FILE"
 set +a
 
 # Espera a que Metabase esté disponible
