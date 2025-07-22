@@ -1,4 +1,7 @@
-# PowerShell script para limpiar y reiniciar el proyecto desde cero
+# PowerShell script para limpiar y reiniciar el proyecto desde cualquier ubicación
+$scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
+Set-Location $scriptDir
+
 Write-Host "Deteniendo y eliminando contenedores..."
 docker-compose down -v
 
