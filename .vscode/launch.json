@@ -1,0 +1,15 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Restart Project",
+      "type": "bashdb",
+      "request": "launch",
+      "program": "${workspaceFolder}/restart_project.sh",
+      "args": [],
+      "env": {},
+      "cwd": "${workspaceFolder}",
+      "terminalKind": "integrated"
+    }
+  ]
+}

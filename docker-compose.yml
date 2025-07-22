@@ -4,21 +4,22 @@ services:
     restart: always
     volumes:
       - db-data:${DB_DATA_DIR}
+      - ./init-db.sql:/docker-entrypoint-initdb.d/init-db.sql
     environment:
       - PGDATA=${DB_DATA_DIR}
-      - POSTGRES_DB=${DB_NAME}
-      - POSTGRES_USER=${DB_USER}
-      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin_password
 
   metabase:
     image: metabase/metabase:latest
     restart: always
     environment:
       MB_DB_TYPE: "postgres"
-      MB_DB_DBNAME: "${DB_NAME}"
+      MB_DB_DBNAME: "metabase"
       MB_DB_PORT: "5432"
-      MB_DB_USER: "${DB_USER}"
-      MB_DB_PASS: "${DB_PASSWORD}"
+      MB_DB_USER: "metabase_user"
+      MB_DB_PASS: "met_pass"
       MB_DB_HOST: "db"
       MB_PASSWORD_COMPLEXITY: strong
       MB_PASSWORD_LENGTH: 10
@@ -32,6 +33,17 @@ services:
         ipv4_address: 172.16.200.30
     depends_on:
       - db
+
+  init-metabase:
+    image: curlimages/curl:latest
+    depends_on:
+      - metabase
+    entrypoint: ["sh", "-c", "apk add --no-cache bash jq && bash /scripts/add_mydata_to_metabase.sh"]
+    volumes:
+      - ./add_mydata_to_metabase.sh:/scripts/add_mydata_to_metabase.sh:ro
+      - ./.env:/scripts/.env:ro
+    networks:
+      default:
 
 networks:
   default:
