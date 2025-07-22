@@ -2,6 +2,10 @@
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
 Set-Location $scriptDir
 
+# Actualiza el código del repositorio antes de continuar
+Write-Host "Actualizando el código del repositorio..."
+git pull
+
 Write-Host "Deteniendo y eliminando contenedores..."
 docker compose down -v
 
