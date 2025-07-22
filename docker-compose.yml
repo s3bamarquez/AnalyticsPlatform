@@ -39,7 +39,7 @@ services:
     user: root
     depends_on:
       - metabase
-    entrypoint: ["sh", "-c", "apk add --no-cache bash jq && bash /scripts/add_mydata_to_metabase.sh"]
+    entrypoint: ["sh", "-c", "apk add --no-cache jq && sh /scripts/add_mydata_to_metabase.sh"]
     volumes:
       - ./add_mydata_to_metabase.sh:/scripts/add_mydata_to_metabase.sh:ro
       - ./.env:/scripts/.env:ro

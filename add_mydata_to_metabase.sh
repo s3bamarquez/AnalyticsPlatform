@@ -1,12 +1,12 @@
-#!/usr/bin/env bash
-set -eo pipefail
+#!/usr/bin/env sh
+set -e
 
 # Directorio del script
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 
 # Cargar variables del archivo .env
 set -a
-source "$SCRIPT_DIR/.env"
+. "$SCRIPT_DIR/.env"
 set +a
 
 # Espera a que Metabase esté disponible
