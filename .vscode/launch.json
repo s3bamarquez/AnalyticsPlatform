@@ -3,7 +3,7 @@
   "configurations": [
     {
       "name": "Restart Project (PowerShell)",
-      "type": "powershell",
+      "type": "PowerShell",
       "request": "launch",
       "script": "${workspaceFolder}/restart_project.ps1",
       "cwd": "${workspaceFolder}"
