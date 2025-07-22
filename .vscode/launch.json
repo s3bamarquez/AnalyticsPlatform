@@ -2,10 +2,18 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Restart Project (Linux/Mac)",
+      "type": "process",
+      "request": "launch",
+      "command": "bash",
+      "args": ["${workspaceFolder}/restart_project.sh"],
+      "cwd": "${workspaceFolder}"
+    },
+    {
       "name": "Restart Project (PowerShell)",
       "type": "PowerShell",
       "request": "launch",
-      "script": "${workspaceFolder}\\restart_project.ps1",
+      "script": "${workspaceFolder}\restart_project.ps1",
       "cwd": "${workspaceFolder}"
     }
   ]
