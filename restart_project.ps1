@@ -3,10 +3,10 @@ $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Definition
 Set-Location $scriptDir
 
 Write-Host "Deteniendo y eliminando contenedores..."
-docker-compose down -v
+docker compose down -v
 
 Write-Host "Eliminando imágenes huérfanas..."
 docker image prune -f
 
 Write-Host "Iniciando el proyecto desde cero..."
-docker-compose up --build
+docker compose up --build
