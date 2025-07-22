@@ -10,7 +10,7 @@ source "$SCRIPT_DIR/.env"
 set +a
 
 # Espera a que Metabase esté disponible
-until curl -s http://metabase:3000/api/health | grep -q '"ok":true'; do
+until curl -s http://metabase:3000/api/health | jq -e '.status == "ok"' >/dev/null; do
   echo "Esperando a que Metabase esté listo..."
   sleep 5
 done
