@@ -8,12 +8,15 @@ Based on official docker images for [PostgreSQL] and [Metabase].
 ## Usage
 
 - Clone this repository.
+
 - Copy `.env.sample` to `.env` and adjust the variables.
-- Start services locally using Docker Compose.
+- Use the provided script to reset and start the project from scratch:
 
   ```shell
-  $ docker compose up
+  $ ./restart_project.sh
   ```
+
+This script removes any previous containers and volumes before running `docker compose up` internally.
 
 Metabase can connect to host (`host.docker.internal`) from static IP `172.16.200.30`,
 (static IP can be used for authentication. e.g. in `pg_hba.conf`)
