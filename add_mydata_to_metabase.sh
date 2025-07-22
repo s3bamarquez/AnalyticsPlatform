@@ -38,7 +38,7 @@ MB_SESSION=$(curl -s -X POST \
 
 # Crear la conexión a la base de datos MyData si no existe
 EXISTING_DB=$(curl -s -H "X-Metabase-Session: $MB_SESSION" \
-  http://metabase:3000/api/database | jq -r --arg name "$MYDATA_DB_NAME" '.[] | select(.name == $name) | .id')
+  http://metabase:3000/api/database | jq -r --arg name "$MYDATA_DB_NAME" '.data[]? | select(.name == $name) | .id')
 if [ -z "$EXISTING_DB" ]; then
   echo "Creando conexión a la base de datos $MYDATA_DB_NAME..."
   curl -s -X POST \
