@@ -5,7 +5,7 @@
       "name": "Restart Project (PowerShell)",
       "type": "PowerShell",
       "request": "launch",
-      "script": "${workspaceFolder}/restart_project.ps1",
+      "script": "${workspaceFolder}\restart_project.ps1",
       "cwd": "${workspaceFolder}"
     }
   ]
