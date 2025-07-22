@@ -41,10 +41,24 @@ EXISTING_DB=$(curl -s -H "X-Metabase-Session: $MB_SESSION" \
   http://metabase:3000/api/database | jq -r --arg name "$MYDATA_DB_NAME" '.data[]? | select(.name == $name) | .id')
 if [ -z "$EXISTING_DB" ]; then
   echo "Creando conexión a la base de datos $MYDATA_DB_NAME..."
+  JSON_PAYLOAD=$(cat <<EOF
+{
+  "name": "$MYDATA_DB_NAME",
+  "engine": "postgres",
+  "details": {
+    "host": "db",
+    "port": 5432,
+    "dbname": "$MYDATA_DB_NAME",
+    "user": "$MYDATA_DB_USER",
+    "password": "$MYDATA_DB_PASSWORD"
+  }
+}
+EOF
+  )
   curl -s -X POST \
     -H "Content-Type: application/json" \
     -H "X-Metabase-Session: $MB_SESSION" \
-    -d "{\n    \"name\": \"$MYDATA_DB_NAME\",\n    \"engine\": \"postgres\",\n    \"details\": {\n      \"host\": \"db\",\n      \"port\": 5432,\n      \"dbname\": \"$MYDATA_DB_NAME\",\n      \"user\": \"$MYDATA_DB_USER\",\n      \"password\": \"$MYDATA_DB_PASSWORD\"\n    }\n  }" \
+    -d "$JSON_PAYLOAD" \
     http://metabase:3000/api/database
 else
   echo "La conexión $MYDATA_DB_NAME ya existe (id $EXISTING_DB)"
